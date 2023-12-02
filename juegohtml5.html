@@ -1,6 +1,74 @@
 <!DOCTYPE html>
 <html>
+<head>
+    <title>Juego de la serpiente</title>
+        <script>
+            var canvas;
+            var ctx;
+            var w;
+            var h;
+            var comida;
+            var score;
+            var snake_array;
+            var cw;
 
+            function init(){
+                canvas=document.getElementById("canvas");
+                ctx=canvas.getContext("2d");
+                document.addEventListener("keydown",teclas,true);
+
+                w=canvas.width;
+                h=canvas.height;
+                cw=10;
+                d="right";
+                serpiente();
+                comida();
+                score=0;
+
+                if(typeof game_loop !="undefined") clearInterval(game_loop);
+                game_loop=setInterval(paint,60);
+            }
+            function paint(){
+                ctx.fillStyle="white";
+                ctx.fillRect(0,0,w,h);
+                ctx.strokeStyle="black";
+                ctx.strokeRect(0,0,w,h);
+
+                var nx=snake_array[0].x;
+                var ny=snake_array[0].y;
+                
+                if(d=="right") nx++;
+                else if(d=="left") nx--;
+                else if(d=="up") ny--;
+                else if(d=="down") ny++;
+
+            }
+            function teclas(e){
+
+            }
+            function colisiones(x,y,array){
+
+            }
+            function serpiente(){
+
+            }
+            function comidad(){
+
+            }
+            function celda(x,y){
+
+            }
+        </script>
+</head>
+
+<body onload="init()">
+    <canvas id="canvas" width="450" height="450">
+
+    </canvas>
+
+
+
+</body>
 
 
 
