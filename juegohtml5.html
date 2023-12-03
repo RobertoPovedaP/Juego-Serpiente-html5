@@ -42,11 +42,26 @@
 			else if(d == "up") ny--;
 			else if(d == "down") ny++;
 			
+            /*
+            Esta parte verifica si la cabeza de la serpiente (nx, ny) ha colisionado con las paredes
+            del lienzo (w y h representan la anchura y altura del lienzo) o consigo misma (verificado
+            mediante la función colisiones). Si ocurre alguna colisión, se reinicia el juego llamando
+            a la función init() y se detiene la ejecución de la función actual con return.
+            */
 			if(nx == -1 || nx == w/cw || ny == -1 || ny == h/cw || colisiones(nx, ny, snake_array)){
 				init();
 				return;
 			}
 			
+            /*
+            Aquí se comprueba si la cabeza de la serpiente ha alcanzado la posición de la comida (comida.x y comida.y).
+            Si es así, se incrementa la puntuación (score), se crea una nueva parte de la serpiente (tail) en la posición
+            de la cabeza y se genera una nueva posición para la comida llamando a la función comidap().
+
+            En caso contrario, se mueve la serpiente: se elimina la última parte de la serpiente (pop()) y se coloca una
+            nueva parte en la posición de la cabeza actual (nx, ny).
+            */
+            
 			if(nx == comida.x && ny == comida.y){
 				var tail = {x: nx, y: ny};
 				score++;
@@ -58,11 +73,20 @@
 				tail.y = ny;
 			}
 			
+            /*
+            Se añade la nueva cabeza de la serpiente al principio del array (unshift(tail)) para representar el movimiento.
+            Luego, se itera sobre todas las partes de la serpiente y se dibujan en el lienzo llamando a la función celda(c.x, c.y).
+            */
 			snake_array.unshift(tail);
 			for(var i=0; i<snake_array.length; i++){
 				var c = snake_array[i];
 				celda(c.x, c.y);
 			}
+
+            /*
+            Finalmente, se dibuja la comida en el lienzo y se muestra la puntuación en la esquina inferior izquierda mediante el uso
+            del contexto del lienzo (ctx). La función fillText se utiliza para renderizar el texto en el lienzo.
+            */
 			celda(comida.x, comida.y);
 			var score_text = "Score: "+score;
 			ctx.fillText(score_text, 5, h-5);
@@ -104,15 +128,6 @@
 </head>
 
 <body onload="init()">
-    <canvas id="canvas" width="450" height="450">
-
-    </canvas>
-
-
-
+    <canvas id="canvas" width="450" height="450"></canvas>
 </body>
-
-
-
-
 </html>
